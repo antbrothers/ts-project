@@ -14,9 +14,14 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "element-ui": "^2.8.2",
     "ts-loader": "^3.5.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-class-component": "^7.0.2",
+    "vue-property-decorator": "^8.1.0",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.1.0",
+    "vuex-class": "^0.3.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
