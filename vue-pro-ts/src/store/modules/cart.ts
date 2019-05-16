@@ -1,73 +1,85 @@
-import { Commit } from 'vuex';
-import shop from "../../api/shop";
-import * as types from "../mutation-types";
-import { CartProduct, CheckoutStatus, AddToCartPayload } from "../index";
+import { Commit } from 'vuex'
+import shop from '../../api/shop'
+import * as types from '../mutation-types'
+import { CartProduct, CheckoutStatus, AddToCartPayload } from '../index'
+
 interface Shape {
   id: number
   quantity: number
 }
+
 interface CheckoutFailurePayload {
   savedCartItems: Shape[]
 }
+
 export interface State {
   added: Shape[]
   checkoutStatus: CheckoutStatus
 }
 
-// 初始化状态
+// initial state
+// shape: [{ id, quantity }]
 const initState: State = {
   added: [],
-  checkoutStatus: null
+  checkoutStatus: null,
 }
 
-// getters 
+// getters
 const getters = {
-  checkoutStatus: (state: State) => state.checkoutStatus
+  checkoutStatus: (state: State) => state.checkoutStatus,
 }
 
 // actions
 const actions = {
-  checkout(context: {commit: Commit; state: State}, products: CartProduct[]) {
+  checkout(context: { commit: Commit; state: State }, products: CartProduct[]) {
     const failurePayload: CheckoutFailurePayload = {
-      savedCartItems: [...context.state.added]
+      savedCartItems: [...context.state.added],
     }
     context.commit(types.CHECKOUT_REQUEST)
     shop.buyProducts(
       products,
       () => context.commit(types.CHECKOUT_SUCCESS),
-      () => context.commit(types.CHECKOUT_FAILURE, failurePayload)
+      () => context.commit(types.CHECKOUT_FAILURE, failurePayload),
     )
-  }
+  },
 }
+
 // mutations
 const mutations = {
-  [types.ADD_TO_CART] (state: State, payload: AddToCartPayload) {
-    state.checkoutStatus = null
-    const record = state.added.find((p) => p.id === payload.id)
-    if (!record) {
-      state.added.push({
-        id: payload.id,
-        quantity: 1
-      })
-    } else {
-      record.quantity++
-    }
-  },
-  [types.CHECKOUT_REQUEST] (state: State) {
+  // [types.ADD_TO_CART](state: State, payload: AddToCartPayload) {
+  //   state.checkoutStatus = null    
+  //   const record = state.added.filter((value: Shape, index: number, array: Shape[]) => value.id === payload.id)
+  //   if (!record) {
+  //     state.added.push({
+  //       id: payload.id,
+  //       quantity: 1,
+  //     })
+  //   } else {
+  //     record[0].quantity++
+  //     // record.quantity++
+  //   }
+  // },
+
+  [types.CHECKOUT_REQUEST](state: State) {
+    // clear cart
     state.added = []
     state.checkoutStatus = null
   },
+
   [types.CHECKOUT_SUCCESS](state: State) {
-    state.checkoutStatus = 'successfull'
+    state.checkoutStatus = 'successful'
   },
-  [types.CHECKOUT_FAILURE] (state: State, payload: CheckoutFailurePayload)   {
+
+  [types.CHECKOUT_FAILURE](state: State, payload: CheckoutFailurePayload) {
+    // rollback to the cart saved before sending the request
     state.added = payload.savedCartItems
     state.checkoutStatus = 'failed'
-  }
+  },
 }
+
 export default {
   state: initState,
   getters,
   actions,
-  mutations
+  mutations,
 }

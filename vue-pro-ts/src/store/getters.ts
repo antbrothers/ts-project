@@ -2,16 +2,16 @@ import { GetterTree, Getter } from 'vuex'
 import { State, CartProduct } from './index'
 
 const cartProducts: Getter<State, any> = (state: State) => {
-  return state.cat.added.map((shape) => {
-    const product = state.products.all.find((p) => p.id === shape.id)
-    if (product) {
-      const cartProduct: CartProduct = {
-        title: product.title,
-        price: product.price,
-        quantity: shape.quantity,
-      }
-      return cartProduct
-    }
+  return state.cart.added.map((shape) => {
+    // const product = state.products.all.find((p) => p.id === shape.id)
+    // if (product) {
+    //   const cartProduct: CartProduct = {
+    //     title: product.title,
+    //     price: product.price,
+    //     quantity: shape.quantity,
+    //   }
+    //   return cartProduct
+    // }
   })
 }
 

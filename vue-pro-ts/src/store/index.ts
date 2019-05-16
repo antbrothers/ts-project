@@ -2,25 +2,27 @@ import Vue from 'vue'
 import Vuex, { Commit, Dispatch } from 'vuex'
 import actions from './actions'
 import getters from './getters'
-import cat, { State as CardState } from './modules/cart'
+import cart, { State as CardState } from './modules/cart'
 import products, { State as ProductsState } from './modules/products'
 
 Vue.use(Vuex)
+
 export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    cat,
-    products
-  }
+    cart,
+    products,
+  },
 })
 
-export interface ActionContextBasic{
+export interface ActionContextBasic {
   commit: Commit,
   dispatch: Dispatch
 }
-export interface State{
-  cat: CardState,
+
+export interface State {
+  cart: CardState,
   products: ProductsState
 }
 
@@ -38,6 +40,7 @@ export interface CartProduct {
   price: number,
   quantity: number
 }
+
 export interface AddToCartPayload {
   id: number
 }

@@ -10,7 +10,9 @@ const addToCart: Action<State, any> = (context: { commit: Commit }, product: Pro
     context.commit(types.ADD_TO_CART, payload)
   }
 }
+
 const actions: ActionTree<State, any> = {
-  addToCart
+  addToCart,
 }
+
 export default actions
