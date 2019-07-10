@@ -42,7 +42,7 @@ export default Vue.extend({
       msg: 'Welcome to Your Vue.js App'
     }
   },
-  created() {
+  created () {
     this.$store.dispatch('getAllProducts')
   },
   methods: {
