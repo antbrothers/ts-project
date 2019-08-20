@@ -10,7 +10,7 @@ import { ILoginAction, IRegisterAction, LOGIN_FAIL, LOGIN_SUC, REGISTER_FAIL, RE
 const userService = new UserService()
 
 export function* login(action: ILoginAction) {
-  debugger
+  
   const { username, password } = action.payload
   try {
     const res: any = yield call(userService.login, username, password);

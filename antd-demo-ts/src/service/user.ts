@@ -8,7 +8,7 @@ import request from './request'
 class UserApi {
   public static prefix = '/users'
   public login(username: string, password: string) {
-    debugger
+    
     return request.get(`/api/ServiceList`).then((res) => {
       return res
     })

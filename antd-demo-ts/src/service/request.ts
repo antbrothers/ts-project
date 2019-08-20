@@ -14,7 +14,7 @@ const request = axios.create({
 })
 // 添加请求拦截器
 axios.interceptors.request.use((config) => {
-  debugger
+  
   return config
 }, (error) => {
   // 请求错误
@@ -22,9 +22,9 @@ axios.interceptors.request.use((config) => {
 })
 // 添加响应拦截器
 request.interceptors.response.use((response) => {
-  debugger  
+    
   const res: any = response.data;
-  debugger
+  
   if (res.error_code) {
     message.warn(res.msg);
     throw new Error(res.msg);

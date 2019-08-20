@@ -8,14 +8,14 @@ import satellite from "../../assets/404.svg";
 const { Sider } = Layout
 const { SubMenu } = Menu
 
-const initialState = {
-  collapsed: false,
+const initialState = {  
   openKeys: "", // 展开的菜单
   selectedKey: "" // 选择的菜单
 };
 
 type State = Readonly<typeof initialState>;
 interface IProps {
+  onCollapsed: boolean
 }
 
 class Sidebar extends React.PureComponent<IProps, State> {
@@ -27,7 +27,7 @@ class Sidebar extends React.PureComponent<IProps, State> {
   }
   public render() {
     return (
-      <Sider collapsible collapsed={this.state.collapsed} style={{ minHeight: '100vh' }}>
+      <Sider collapsed={this.props.onCollapsed} style={{ minHeight: '100vh' }}>
           <div className="logo">
             <img src={satellite} className='img-icon'/>
           </div>
@@ -74,15 +74,7 @@ class Sidebar extends React.PureComponent<IProps, State> {
     )
   }
 }
-function mapStateToProps({app}: {app: any}) {
-  return {
-    openKeys: app,
-    routes: app,
-    selectedKeys: app,
-    collapsed: app
-  }
-}
 export default connect(
-  mapStateToProps,
+  null,
   {}  
 )(Sidebar)

@@ -5,14 +5,15 @@ import './style.scss'
 const { Header } = Layout
 const confirm = Modal.confirm
 
-const initialState = {
-  collapsed: false, 
-};
-
-type State = Readonly<typeof initialState>;
-interface IProps {  
+// 定义接口
+interface IProps {
+  collapsed?: any
 }
-
+// 初始化状态
+const initialState = {
+  collapsedStatus: true,
+};
+type State = Readonly<typeof initialState>;
 const menu = (
   <Menu>
     <Menu.Item key="0">退出登录</Menu.Item>
@@ -20,11 +21,14 @@ const menu = (
 );
 class HeaderWrapper extends React.PureComponent<IProps, State> {
   public readonly state: State = initialState
+  constructor(props: IProps) {
+    super(props)
+  }
   public collapsedHandle = () => {
     this.setState({
-      collapsed: !this.state.collapsed
+      collapsedStatus: !this.state.collapsedStatus
     })   
-    console.log(this.props)    
+    this.props.collapsed(this.state.collapsedStatus)
   }
   public render() {
     return (
@@ -36,7 +40,7 @@ class HeaderWrapper extends React.PureComponent<IProps, State> {
         }}>
         <div className="clearfix">
           <Icon
-            className="trigger"            
+            className="trigger"
             type={"menu-fold"}
             onClick={this.collapsedHandle}
           />
@@ -56,12 +60,4 @@ class HeaderWrapper extends React.PureComponent<IProps, State> {
     )
   }
 }
-export default connect(
-  ({ app }: { app: any }) => {
-    return {
-      userInfo: app,
-      collapsed: app
-    };
-  },
-  {}
-)(HeaderWrapper);
+export default connect(null)(HeaderWrapper);

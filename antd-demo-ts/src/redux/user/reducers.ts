@@ -10,8 +10,7 @@ const initialState: IUserState = {
   userName: '',
   errMsg: ''
 }
-export default function userReducer(state = initialState, action: LoginActionTypes | RegActionTypes) {
-  debugger
+export default function userReducer(state = initialState, action: LoginActionTypes | RegActionTypes) {  
   switch (action.type) {
     case LOGIN:
       return {

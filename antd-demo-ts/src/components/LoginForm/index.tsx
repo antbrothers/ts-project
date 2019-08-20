@@ -23,12 +23,9 @@ interface ILoginForm extends FormComponentProps {
 class LoginForm extends React.Component<ILoginForm> {
   
   public handleLogin = () => {
-    debugger
-    console.log(this.props.user)       
-    console.log('登录成功回调')
+    console.log(this.props.user)         
   };  
-  public handleSubmit = (e: any) => {
-    debugger  
+  public handleSubmit = (e: any) => {      
     e.preventDefault(); 
     this.props.form.validateFields((err: Error, values) => {
       if (!err) {
