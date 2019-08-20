@@ -1,4 +1,4 @@
-import { Avatar, Dropdown, Icon, Layout, Menu, Modal } from 'antd'
+import { Avatar, Dropdown, Icon, Layout, Menu, Modal, Tag } from 'antd'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import './style.scss'
@@ -7,18 +7,14 @@ const confirm = Modal.confirm
 
 // 定义接口
 interface IProps {
-  collapsed?: any
+  collapsed?: any;
+  onLoginOut?: any
 }
 // 初始化状态
 const initialState = {
   collapsedStatus: true,
 };
 type State = Readonly<typeof initialState>;
-const menu = (
-  <Menu>
-    <Menu.Item key="0">退出登录</Menu.Item>
-  </Menu>
-);
 class HeaderWrapper extends React.PureComponent<IProps, State> {
   public readonly state: State = initialState
   constructor(props: IProps) {
@@ -27,8 +23,21 @@ class HeaderWrapper extends React.PureComponent<IProps, State> {
   public collapsedHandle = () => {
     this.setState({
       collapsedStatus: !this.state.collapsedStatus
-    })   
+    })
     this.props.collapsed(this.state.collapsedStatus)
+  }
+  public loginOut() {
+    localStorage.removeItem('isLogin')
+    console.log(this)
+    debugger    
+    this.props.onLoginOut()
+  }
+  public menu = () => {
+    return (
+      <Menu>
+        <Menu.Item key="0" onClick={this.loginOut.bind(this)}>退出登录</Menu.Item>
+      </Menu>
+    )
   }
   public render() {
     return (
@@ -44,7 +53,10 @@ class HeaderWrapper extends React.PureComponent<IProps, State> {
             type={"menu-fold"}
             onClick={this.collapsedHandle}
           />
-          <Dropdown className="dropdown" overlay={menu} trigger={["click"]}>
+          <Tag color="red">供应商</Tag>
+          <Tag color="red">广告主</Tag>
+          <Tag color="red">流量主</Tag>
+          <Dropdown className="dropdown" overlay={this.menu} trigger={["click"]}>
             <span className="ant-dropdown-link" style={{ cursor: "pointer" }}>
               <Avatar
                 size="small"

@@ -1,9 +1,18 @@
 .form-body {
-  width: 300px;
+  top: 100px;
+  position: relative;
+  width: 400px;
   height: 500px;
-  padding-top: 200px;
+  padding-top: 100px;
   margin: 0 auto;
+  background: white;
+  padding-left: 30px;
+  padding-right: 30px;  
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   h1 {
     text-align: center;
+  }
+  .ant-input, .ant-btn {
+    height: 45px;
   }
 }

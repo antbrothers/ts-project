@@ -2,7 +2,7 @@
  * @Author: linjianx 
  * @Date: 2019-08-14 11:22:29 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-19 18:30:38
+ * @Last Modified time: 2019-08-20 16:51:29
  */
 import { Layout } from "antd";
 import Exception from "../pages/exception/index";
@@ -27,7 +27,8 @@ import "./style.scss";
 interface IProps extends RouteComponentProps {
   userId: string;
   isLogin: boolean;
-  collapsed?: () => void; 
+  onLoginOut?: () => void;
+  collapsed?: () => void;
   onCollapsed?: boolean
 }
 const initialState = {
@@ -38,7 +39,7 @@ type State = Readonly<typeof initialState>;
 const { Content } = Layout;
 class Layouts extends React.PureComponent<IProps, State> {
   constructor(props: IProps) {
-    super(props);    
+    super(props);
   }
   public readonly state: State = initialState
   public generateRoute() {
@@ -51,22 +52,26 @@ class Layouts extends React.PureComponent<IProps, State> {
 
     renderRoute = <Route path='/login' component={Login} />
     return renderRoute;
-  }  
+  }
   public collapsed(p: boolean) {
-    console.log(p)  
+    console.log(p)
     this.setState({
       collapsed: p
     })
-  }  
+  }
+  public onLoginOut () {
+    console.log(this)
+    this.props.history.push('/login')
+  }
   public render() {
     console.warn("Render Layout");
     return (
       <div className="layout-wrapper">
-        {this.props.isLogin ? (
+        {localStorage.getItem('isLogin') ? (
           <Layout className="layout-wrapper__inner">
-            <Sidebar onCollapsed={this.state.collapsed}/>
+            <Sidebar onCollapsed={this.state.collapsed} />
             <Layout className="layout-wrapper__inner-left">
-              <HeaderChild collapsed={this.collapsed.bind(this)}></HeaderChild>              
+              <HeaderChild collapsed={this.collapsed.bind(this)} onLoginOut = {this.onLoginOut.bind(this)} ></HeaderChild>
               <Content className="layout-wrapper__inner-left_content">
                 <Switch>
                   {this.generateRoute()}
@@ -86,16 +91,21 @@ class Layouts extends React.PureComponent<IProps, State> {
         ) : (
             <Switch>
               <Route path="/login" component={login} />
-              <Redirect to="/login" />
             </Switch>
           )}
       </div>
     );
   }
 }
-const mapStateToProps = (app: any) => ({
-  isLogin: true,
-  userId: '' 
-});
+// const mapStateToProps = (app: any) => ({
+//   isLogin: false,
+//   userId: '' 
+// });
+const mapStateToProps = ({ app }: { app: any }) => {
+  return {
+    isLogin: false,
+    userId: ''
+  };
+}
 
 export default withRouter(connect(mapStateToProps)(Layouts));

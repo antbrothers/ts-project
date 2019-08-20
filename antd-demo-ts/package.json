@@ -7,6 +7,7 @@
     "@loadable/component": "^5.10.2",
     "@svgr/webpack": "4.3.2",
     "@types/jest": "24.0.17",
+    "@types/jquery": "^3.3.31",
     "@types/loadable__component": "^5.10.0",
     "@types/node": "12.7.1",
     "@types/nprogress": "^0.2.0",
@@ -46,6 +47,7 @@
     "jest-environment-jsdom-fourteen": "0.1.0",
     "jest-resolve": "24.8.0",
     "jest-watch-typeahead": "0.3.1",
+    "jquery": "^3.4.1",
     "mini-css-extract-plugin": "0.5.0",
     "node-sass": "^4.12.0",
     "nprogress": "^0.2.0",
@@ -153,5 +155,5 @@
     "presets": [
       "react-app"
     ]
-  }  
+  }
 }

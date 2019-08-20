@@ -2,13 +2,12 @@
  * @Author: linjianx 
  * @Date: 2019-08-14 10:51:52 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-19 11:49:09
+ * @Last Modified time: 2019-08-20 16:25:38
  */
 
 import { Button, Form, Icon, Input } from 'antd';
 import { FormComponentProps } from 'antd/lib/form'
 import * as React from 'react'
-import { MouseEvent } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { login } from '../../redux/user/actions'
@@ -21,21 +20,22 @@ interface ILoginForm extends FormComponentProps {
   user: IUserState;
 }
 class LoginForm extends React.Component<ILoginForm> {
-  
   public handleLogin = () => {
-    console.log(this.props.user)         
-  };  
-  public handleSubmit = (e: any) => {      
-    e.preventDefault(); 
+    console.log(this.props.user)
+    localStorage.setItem('isLogin', 'true')
+    this.props.onToTodo()   
+  };
+  public handleSubmit = (e: any) => {
+    e.preventDefault();
     this.props.form.validateFields((err: Error, values) => {
       if (!err) {
         const { username, password } = values
-        this.props.onLogin({username, password, callback: this.handleLogin})
+        this.props.onLogin({ username, password, callback: this.handleLogin })
       }
     })
-  }  
+  }
   public render() {
-    const { getFieldDecorator } = this.props.form;   
+    const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className='form-body'>
         <h1>MATE广告平台</h1>
@@ -71,7 +71,7 @@ class LoginForm extends React.Component<ILoginForm> {
             />
           )}
         </Form.Item>
-        <Form.Item>        
+        <Form.Item>
           <Button type="primary" block htmlType='submit'>
             登录
           </Button>
@@ -80,10 +80,10 @@ class LoginForm extends React.Component<ILoginForm> {
     )
   }
 }
-const mapStateToProps = (store: any) => ({  
+const mapStateToProps = (store: any) => ({
   user: store.user
 });
-const mapDispatchToProps = (dispatch: Dispatch) => ({    
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   onLogin: (authData: IAuthData) => dispatch(login(authData))
 });
 const WrappedLoginForm = Form.create<ILoginForm>()(LoginForm);
