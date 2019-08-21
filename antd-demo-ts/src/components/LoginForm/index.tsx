@@ -2,7 +2,7 @@
  * @Author: linjianx 
  * @Date: 2019-08-14 10:51:52 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-20 16:25:38
+ * @Last Modified time: 2019-08-21 10:57:54
  */
 
 import { Button, Form, Icon, Input } from 'antd';
@@ -13,6 +13,7 @@ import { Dispatch } from 'redux'
 import { login } from '../../redux/user/actions'
 import { IAuthData, IUserState } from '../../redux/user/types'
 import './style.scss'
+import PcVerify from '../PcVerify/index'
 interface ILoginForm extends FormComponentProps {
   triggerForm: () => void;
   onLogin: (authData: IAuthData) => void;
@@ -71,8 +72,9 @@ class LoginForm extends React.Component<ILoginForm> {
             />
           )}
         </Form.Item>
+        <PcVerify></PcVerify>
         <Form.Item>
-          <Button type="primary" block htmlType='submit'>
+          <Button type="primary" block htmlType='submit' className='login-btn'>
             登录
           </Button>
         </Form.Item>
