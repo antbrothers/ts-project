@@ -2,7 +2,8 @@
  * @Author: linjianx 
  * @Date: 2019-08-21 10:18:46 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-21 11:02:55
+ * @Last Modified time: 2019-08-21 11:07:12
+ * @desc: 滑动图型验证码
  */
 const l = 42
   , r = 10

@@ -2,7 +2,7 @@
  * @Author: linjianx 
  * @Date: 2019-08-21 10:11:52 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-21 10:55:45
+ * @Last Modified time: 2019-08-21 11:07:27
  * @Desc: 图型验证码
  */
 import * as React from 'react'
@@ -14,7 +14,6 @@ class PcVerify extends React.PureComponent {
   }
   componentDidMount () {
     init(document.getElementById('captcha'), function () {
-      // document.getElementById('msg').innerHTML = '登录成功！'
       console.log('验证成功')
     })
   }
