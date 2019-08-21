@@ -8,10 +8,7 @@
 import * as React from 'react'
 import { init } from '../../utils/jigsaw'
 import './style.scss'
-class PcVerify extends React.PureComponent {
-  constructor(props: any) {
-    super(props)
-  }
+class PcVerify extends React.PureComponent {  
   componentDidMount () {
     init(document.getElementById('captcha'), function () {
       console.log('验证成功')

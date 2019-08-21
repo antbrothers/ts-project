@@ -9,15 +9,14 @@ import Exception from "../pages/exception/index";
 import login from "../pages/login/index";
 import * as React from "react";
 import { connect } from "react-redux";
-import {
-  Redirect,
+import {  
   Route,
   RouteComponentProps,
   Switch,
   withRouter
 } from "react-router-dom";
 // import RouteWithSubRoutes from "../router/route-with-sub-routes";
-import { IUserState } from "../redux/user/types";
+// import { IUserState } from "../redux/user/types";
 // import { matchParamsPath } from "../utils/sidebar";
 import Login from '../pages/login/index'
 import HeaderChild from '../components/header/index'
@@ -44,11 +43,11 @@ class Layouts extends React.PureComponent<IProps, State> {
   public readonly state: State = initialState
   public generateRoute() {
     let renderRoute = null;
-    const {
-      location: { pathname },
-      userId,
-      isLogin
-    } = this.props;
+    // const {
+    //   location: { pathname },
+    //   userId,
+    //   isLogin
+    // } = this.props;
 
     renderRoute = <Route path='/login' component={Login} />
     return renderRoute;

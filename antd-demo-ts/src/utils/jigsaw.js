@@ -2,7 +2,7 @@
  * @Author: linjianx 
  * @Date: 2019-08-21 10:18:46 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-21 11:07:12
+ * @Last Modified time: 2019-08-21 19:40:04
  * @desc: 滑动图型验证码
  */
 const l = 42
@@ -170,7 +170,7 @@ class jigsaw {
       if (!isMouseDown)
         return false
       isMouseDown = false
-      if (e.x == originX)
+      if (e.x === originX)
         return false
       removeClass(this.sliderContainer, 'sliderContainer_active')
       this.trail = trail

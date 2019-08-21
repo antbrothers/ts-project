@@ -50,8 +50,8 @@ beforeRender()
 
 // render之前需要做的异步请求：获取配置信息、获取用户信息、生成菜单
 async function beforeRender() {
-  let isLogin = true;
-  let userInfo = null;
+  // let isLogin = true;
+  // let userInfo = null;
   if (pathToRegexp(window.location.pathname).test("/login/")) {
     return;
   }

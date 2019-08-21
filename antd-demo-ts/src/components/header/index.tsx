@@ -1,9 +1,8 @@
-import { Avatar, Dropdown, Icon, Layout, Menu, Modal, Tag } from 'antd'
+import { Avatar, Dropdown, Icon, Layout, Menu, Tag } from 'antd'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import './style.scss'
 const { Header } = Layout
-const confirm = Modal.confirm
 
 // 定义接口
 interface IProps {
