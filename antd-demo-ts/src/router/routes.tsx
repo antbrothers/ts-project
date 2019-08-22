@@ -2,7 +2,7 @@
  * @Author: linjianx 
  * @Date: 2019-08-13 16:13:12 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-22 17:26:14
+ * @Last Modified time: 2019-08-22 18:13:12
  * @Desc: 路由配置信息，路由地址不要以"/"结尾
  */
 import Loading from "../components/loading"
@@ -20,17 +20,35 @@ const Login = Loadable({
   loader: () => import('../pages/login'),
   loading: Loading
 })
-
+const QT = Loadable({
+  loader: () => import('../pages/qt'),
+  loading: Loading
+})
 const routes: IRoutes[] = [
   {
     title: '首页',
     icon: 'appsore',
     exact: true,
     path: '/index',
-    component: Home
+    component: Home,
+    // routes: [
+    //   {
+    //     title: "用户数据",
+    //     icon: "appstore",
+    //     path: "/index/qt",
+    //     routes: [
+    //       {
+    //         title: "用户数据",
+    //         icon: "appstore",
+    //         path: "/index/qt/de",
+    //         component: QT
+    //       }
+    //     ]
+    //   }
+    // ]
   }, {
     title: '登录',
-    icon: 'appsore',   
+    icon: 'appsore',
     path: '/login',
     component: Login
   }
