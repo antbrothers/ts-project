@@ -2,23 +2,23 @@
  * @Author: linjianx 
  * @Date: 2019-08-14 11:22:29 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-20 16:51:29
+ * @Last Modified time: 2019-08-22 17:24:22
  */
 import { Layout } from "antd";
 import Exception from "../pages/exception/index";
 import login from "../pages/login/index";
 import * as React from "react";
 import { connect } from "react-redux";
-import {  
+import {
+  Redirect,
   Route,
   RouteComponentProps,
   Switch,
   withRouter
 } from "react-router-dom";
-// import RouteWithSubRoutes from "../router/route-with-sub-routes";
-// import { IUserState } from "../redux/user/types";
-// import { matchParamsPath } from "../utils/sidebar";
-import Login from '../pages/login/index'
+import RouteWithSubRoutes from "../router/route-with-sub-routes";
+import { IRoutes, IRouteMap } from "../redux/initState/types";
+import { matchParamsPath } from "../utils/sidebar";
 import HeaderChild from '../components/header/index'
 import Sidebar from '../components/sidebar/index'
 import "./style.scss";
@@ -28,7 +28,9 @@ interface IProps extends RouteComponentProps {
   isLogin: boolean;
   onLoginOut?: () => void;
   collapsed?: () => void;
-  onCollapsed?: boolean
+  onCollapsed?: boolean,
+  realRouteMap: IRouteMap;
+  breadcrumbMap: IRouteMap;
 }
 const initialState = {
   collapsed: false
@@ -43,13 +45,57 @@ class Layouts extends React.PureComponent<IProps, State> {
   public readonly state: State = initialState
   public generateRoute() {
     let renderRoute = null;
-    // const {
-    //   location: { pathname },
-    //   userId,
-    //   isLogin
-    // } = this.props;
+    const {
+      location: { pathname },
+      realRouteMap,
+      breadcrumbMap
+    } = this.props;
 
-    renderRoute = <Route path='/login' component={Login} />
+    // 判断是否登录
+    if (localStorage.getItem('isLogin')) {
+      // 全部路由映射中是否存在(同时对params的path进行判断)
+      const targetRoute = matchParamsPath(pathname, realRouteMap)
+      if (targetRoute) {
+        // 当前路由的地址数组
+        const targetPaths = targetRoute.path.split('/').filter((i: string) => i);
+        // 存在组件的路由项
+        const existComponent: IRoutes[] = [];
+        targetPaths.forEach((key: string, index: number) => {
+          const path = `/${targetPaths.slice(0, index + 1).join("/")}`;
+          const route = breadcrumbMap[path];
+          if (route && route.component) {
+            existComponent.push(route);
+          }
+        });
+        // 重新整理嵌套路由，将无组件的嵌套去除
+        if (existComponent.length > 0) {
+          const routeMap = existComponent.reduceRight(
+            (obj: IRoutes, item: IRoutes, index: number) => {
+              if (existComponent.length - 1 === index) {
+                obj = item;
+                return { ...obj };
+              }
+              return { ...item, ...{ routes: [obj] } };
+            },
+            {
+              title: "",
+              path: "",
+              component: null
+            }
+          );
+          renderRoute = <RouteWithSubRoutes {...routeMap} />;
+        }
+      }
+    } else { // 未登录
+      // 处理根域、login情况
+      if (/^\/login(\/?)$/.test(pathname)) {
+        renderRoute = <Route path="/login" component={login} />
+      } else {
+        if (pathname === '/') {
+          renderRoute = <Redirect to="/" />
+        }
+      }
+    }
     return renderRoute;
   }
   public collapsed(p: boolean) {
@@ -58,9 +104,12 @@ class Layouts extends React.PureComponent<IProps, State> {
       collapsed: p
     })
   }
-  public onLoginOut () {
+  public onLoginOut() {
     console.log(this)
     this.props.history.push('/login')
+  }
+  componentDidMount() {
+    console.log(this.props)
   }
   public render() {
     console.warn("Render Layout");
@@ -70,7 +119,7 @@ class Layouts extends React.PureComponent<IProps, State> {
           <Layout className="layout-wrapper__inner">
             <Sidebar onCollapsed={this.state.collapsed} />
             <Layout className="layout-wrapper__inner-left">
-              <HeaderChild collapsed={this.collapsed.bind(this)} onLoginOut = {this.onLoginOut.bind(this)} ></HeaderChild>
+              <HeaderChild collapsed={this.collapsed.bind(this)} onLoginOut={this.onLoginOut.bind(this)} ></HeaderChild>
               <Content className="layout-wrapper__inner-left_content">
                 <Switch>
                   {this.generateRoute()}
@@ -96,15 +145,11 @@ class Layouts extends React.PureComponent<IProps, State> {
     );
   }
 }
-// const mapStateToProps = (app: any) => ({
-//   isLogin: false,
-//   userId: '' 
-// });
-const mapStateToProps = ({ app }: { app: any }) => {
-  return {
-    isLogin: false,
-    userId: ''
-  };
-}
+const mapStateToProps = (store: any) => ({
+  isLogin: store.initState.isLogin,
+  userId: store.initState.userId,
+  realRouteMap: store.initState.realRouteMap,
+  breadcrumbMap: store.initState.breadcrumbMap
+});
 
 export default withRouter(connect(mapStateToProps)(Layouts));

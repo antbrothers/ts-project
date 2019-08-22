@@ -2,11 +2,11 @@
  * @Author: linjianx 
  * @Date: 2019-08-14 11:27:28 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-14 11:38:44
+ * @Last Modified time: 2019-08-22 17:22:00
  */
 
 import pathToRegexp from "path-to-regexp";
-import { IRoutesMap, IRoutes } from "../types/index";
+import { IRouteMap, IRoutes } from "../redux/initState/types";
 
 /**
  * @description 默认匹配菜单的第一个
@@ -47,7 +47,7 @@ export const matchOpenKeys = (selectedKey: string): string[] => {
  */
 export const matchParamsPath = (
   pathname: string,
-  routeMap: IRoutesMap
+  routeMap: IRouteMap
 ): IRoutes => {
   const pathKey: string | undefined = Object.keys(routeMap).find(key =>
     pathToRegexp(key).test(pathname)
@@ -58,7 +58,7 @@ export const matchParamsPath = (
 // 获取选中的菜单和展开的菜单项
 export const getMenuSelectedAndOpenKeys = (
   extractFilterRoutes: IRoutes[],
-  breadcrumbMap: IRoutesMap
+  breadcrumbMap: IRouteMap
 ) => {
   // 输入的地址
   const pathname = window.location.pathname;
