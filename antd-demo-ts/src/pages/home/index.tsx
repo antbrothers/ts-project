@@ -20,14 +20,32 @@ interface IProps extends RouteComponentProps {
 class Home extends React.PureComponent<IProps> {
   constructor(props: IProps) {
     super(props)
+    this.state = {
+
+    }
   }
   componentDidMount () {
     console.log(this.props.route)
+    this.props.route.map((route: IRoutes, i: number) => {
+      console.log(i)
+      console.log(route)
+    })
   }
   public render() {
     return (
       <div>
         首页
+        {/* <RouteWithSubRoutes {...route} /> */}
+        {/* {
+           this.props.route.map((route: IRoutes, i: number) => {    
+             return (
+              // <RouteWithSubRoutes key={i} {...route} />
+             )       
+            // <RouteWithSubRoutes key={i} {...route} />
+            // console.log(i)
+            // console.log(route)
+          })
+        } */}
         {/* {this.props.route.map((route: IRoutes, i: number) => (
         <RouteWithSubRoutes key={i} {...route} />
       ))} */}

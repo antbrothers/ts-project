@@ -21,8 +21,7 @@ const initialState: IStoreState = {
   selectedKeys: [], // 菜单选中
   openKeys: [] // 菜单展开项
 }
-export default function(state = initialState, action: IReduxAction) { 
-  debugger 
+export default function(state = initialState, action: IReduxAction) {   
   switch (action.type) {
     // 初始化 state         
     case 'INIT_STATE': {

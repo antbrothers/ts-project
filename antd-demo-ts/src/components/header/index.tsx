@@ -27,8 +27,7 @@ class HeaderWrapper extends React.PureComponent<IProps, State> {
   }
   public loginOut() {
     localStorage.removeItem('isLogin')
-    console.log(this)
-    debugger    
+    console.log(this)   
     this.props.onLoginOut()
   }
   public menu = () => {

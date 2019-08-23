@@ -1,4 +1,4 @@
-import { Spin } from 'antd'
+import { Spin, Skeleton } from 'antd'
 import * as React from 'react'
 const Loading = () => {
   return (
@@ -15,6 +15,7 @@ const Loading = () => {
       }}
     >
       <Spin
+        size="large"
         style={{
           position: "absolute",
           top: "50%",
