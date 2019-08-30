@@ -98,6 +98,7 @@ export const extractRoute = (
   filter: IRoutes[],
   searchSidebar: IRoutes[]
 ): IExtractRouteReturn => {
+  debugger
   routeList.forEach(
     (route: IRoutes, index: number): void | IExtractRouteReturn => {
       if (route.routes && route.routes.length > 0) {

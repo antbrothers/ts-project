@@ -55,6 +55,7 @@ class Layouts extends React.PureComponent<IProps, State> {
     if (localStorage.getItem('isLogin')) {
       // 全部路由映射中是否存在(同时对params的path进行判断)
       const targetRoute = matchParamsPath(pathname, realRouteMap)
+      
       if (targetRoute) {
         // 当前路由的地址数组
         const targetPaths = targetRoute.path.split('/').filter((i: string) => i);
@@ -99,20 +100,20 @@ class Layouts extends React.PureComponent<IProps, State> {
     return renderRoute;
   }
   public collapsed(p: boolean) {
-    console.log(p)
+    // console.log(p)
     this.setState({
       collapsed: p
     })
   }
   public onLoginOut() {
-    console.log(this)
+    // console.log(this)
     this.props.history.push('/login')
   }
   componentDidMount() {
-    console.log(this.props)
+    // console.log(this.props)    
   }
   public render() {
-    console.warn("Render Layout");
+   
     return (
       <div className="layout-wrapper">
         {localStorage.getItem('isLogin') ? (

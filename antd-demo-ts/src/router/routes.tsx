@@ -28,24 +28,17 @@ const routes: IRoutes[] = [
   {
     title: '首页',
     icon: 'appsore',
-    exact: true,
+    // exact: true,
     path: '/index',
     component: Home,
-    // routes: [
-    //   {
-    //     title: "用户数据",
-    //     icon: "appstore",
-    //     path: "/index/qt",
-    //     routes: [
-    //       {
-    //         title: "用户数据",
-    //         icon: "appstore",
-    //         path: "/index/qt/de",
-    //         component: QT
-    //       }
-    //     ]
-    //   }
-    // ]
+    routes: [
+      {
+        title: "用户数据",
+        icon: "appstore",
+        path: "/index/qt",
+        component: QT
+      }
+    ]
   }, {
     title: '登录',
     icon: 'appsore',

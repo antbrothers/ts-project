@@ -64,6 +64,7 @@ async function beforeRender() {
   // }
 
   const extractRouteMap = extractRoute(routes, [], [], []);
+  
   const extractAllRoutes = extractRouteMap.all;
   // 根据全部展开的路由来获取面包屑映射
   const breadcrumbMap = extractAllRoutes.reduce(
@@ -73,7 +74,8 @@ async function beforeRender() {
     },
     {}
   );
-  const extractFilterRoutes = extractRouteMap.filter;
+  const extractFilterRoutes = extractRouteMap.all;
+  
   // 可跳转的路由映射
   const realRouteMap = extractFilterRoutes.reduce(
     (obj: IRouteMap, item: IRoutes): IRouteMap => {
@@ -82,6 +84,7 @@ async function beforeRender() {
     },
     {}
   );
+  
   const firstLink = extractFilterRoutes[0].path;
   const menuSelectedOpen = getMenuSelectedAndOpenKeys(
     extractFilterRoutes,

@@ -7,55 +7,30 @@
 import * as React from 'react'
 import './style.scss'
 import RouteWithSubRoutes from "../../../src/router/route-with-sub-routes";
-import { 
-  withRouter,
-  RouteComponentProps
+import {
+  Link,
+  Switch
 } from "react-router-dom";
 import { IMatch, IRoutes } from '../../redux/initState/types'
-import { connect } from "react-redux";
 
-interface IProps extends RouteComponentProps {
-  route: any
+const Home = ({ match, routes }: { match: IMatch; routes: IRoutes[] }) => { 
+  return (
+    <div>
+      <h2>Tacos</h2>
+      <ul>
+        <li>
+          <Link to="/index/qt">data</Link>
+        </li>
+        <li>
+          <Link to="/index/qt/de">activity</Link>
+        </li>
+      </ul>
+      <Switch>
+        {routes.map((route: IRoutes, i: number) => (
+          <RouteWithSubRoutes key={i} {...route} />
+        ))}
+      </Switch>
+    </div>
+  )
 }
-class Home extends React.PureComponent<IProps> {
-  constructor(props: IProps) {
-    super(props)
-    this.state = {
-
-    }
-  }
-  componentDidMount () {
-    console.log(this.props.route)
-    this.props.route.map((route: IRoutes, i: number) => {
-      console.log(i)
-      console.log(route)
-    })
-  }
-  public render() {
-    return (
-      <div>
-        首页
-        {/* <RouteWithSubRoutes {...route} /> */}
-        {/* {
-           this.props.route.map((route: IRoutes, i: number) => {    
-             return (
-              // <RouteWithSubRoutes key={i} {...route} />
-             )       
-            // <RouteWithSubRoutes key={i} {...route} />
-            // console.log(i)
-            // console.log(route)
-          })
-        } */}
-        {/* {this.props.route.map((route: IRoutes, i: number) => (
-        <RouteWithSubRoutes key={i} {...route} />
-      ))} */}
-      </div>
-    )
-  }
-}
-const mapStateToProps = (store: any) => ({
-  route: store.initState.routes, 
-});
- 
-export default withRouter(connect(mapStateToProps)(Home));
-// export default Home
+export default Home
