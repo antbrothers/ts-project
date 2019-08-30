@@ -13,8 +13,9 @@ const RouteWithSubRoutes = (route: IRoutes) => {
     <Route 
       path={route.path}
       exact={route.exact}
-      strict={route.strict}
+      strict={route.strict}     
       render={props => {
+        document.title = route.title || "Mate平台"
         return (
           <route.component {...props} routes= {route.routes}/>
         )
