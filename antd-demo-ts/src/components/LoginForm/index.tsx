@@ -2,7 +2,7 @@
  * @Author: linjianx 
  * @Date: 2019-08-14 10:51:52 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-21 10:57:54
+ * @Last Modified time: 2019-08-30 18:10:53
  */
 
 import { Button, Form, Icon, Input } from 'antd';
@@ -22,8 +22,7 @@ interface ILoginForm extends FormComponentProps {
 }
 class LoginForm extends React.Component<ILoginForm> {
   public handleLogin = () => {
-    console.log(this.props.user)
-    localStorage.setItem('isLogin', 'true')
+    console.log(this.props.user)   
     this.props.onToTodo()   
   };
   public handleSubmit = (e: any) => {

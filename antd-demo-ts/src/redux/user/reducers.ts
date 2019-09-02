@@ -2,7 +2,7 @@
  * @Author: linjianx 
  * @Date: 2019-08-14 17:05:59 
  * @Last Modified by: linjianx
- * @Last Modified time: 2019-08-15 11:18:38
+ * @Last Modified time: 2019-08-30 16:41:00
  */
 import { IUserState, LOGIN, LOGIN_FAIL, LOGIN_SUC, LoginActionTypes, RegActionTypes, REGISTER_FAIL, REGISTER_SUC } from './types';
 const initialState: IUserState = {
